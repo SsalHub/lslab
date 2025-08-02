@@ -1,0 +1,22 @@
+{
+    "gear": [
+        {
+            "name": "강림도령 붓",
+            "part": "weapon",
+            "cooldown": 29.2,
+            "image": "images/gears/weapon/gangrim.png",
+            "tag": [
+                "강림",  "강림붓", "강림도령 붓"
+            ]
+        },
+        {
+            "name": "나이트메어 큐브",
+            "part": "armor",
+            "cooldown": 30.0,
+            "image":"images/gears/weapon/nightmare.png",
+            "tag": [
+                "나메", "나메무기", "나이트메어 큐브"
+            ]
+        }
+    ]
+}
