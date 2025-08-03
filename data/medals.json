@@ -1,0 +1,36 @@
+{
+    "medal1": {
+        "name": "첫번째 메달",
+        "series": "시리즈1",
+        "stats": {
+            "weapon": 5,
+            "armor": 5,
+            "helm": 5,
+            "trinket": 5,
+            "attack": 5,
+            "defense": 5,
+            "speed": 5,
+            "drop": 5
+        },
+        "tag": [
+            "청룡의 증표"
+        ]
+    },
+    "medal2": {
+        "name": "두번째 메달",
+        "series": "시리즈2",
+        "stats": {
+            "weapon": 2,
+            "armor": 2,
+            "helm": 2,
+            "trinket": 2,
+            "attack": 2,
+            "defense": 2,
+            "speed": 2,
+            "drop": 2
+        },
+        "tag": [
+            "주작의 증표"
+        ]
+    }
+}

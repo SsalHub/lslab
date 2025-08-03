@@ -6,13 +6,16 @@ icon_img = Image.open("images/ico.png")
 
 # 페이지 설정
 st.set_page_config(
-    page_title="나의 Streamlit 앱",
+    page_title="LSLAB",
     page_icon=icon_img,
     layout="centered"
 )
 
-st.title("🏠 시작 페이지")
-st.write("이것은 메인 페이지입니다.")
+st.title("LSLAB")
+st.write("LSLAB에서 이용할 기능을 선택하세요")
 
-st.page_link("app.py", label="Home", icon="🏠")
-st.page_link("pages/page1.py", label="➡ 두 번째 페이지로 이동", icon="👉")
+col1, col2 = st.columns(2)
+with col1:
+    st.page_link("pages/gear.py", label="장비 페이지", icon="🗡️")
+with col2:
+    st.page_link("pages/medal.py", label="메달 페이지", icon="🏅")
