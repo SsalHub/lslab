@@ -21,12 +21,12 @@ def showInfoDialog(gear):
         1: '쿨타임 -> 육성', 
     }
     gearinfo['seg'].empty().segmented_control(
-        "", 
+        "조회방식 선택", 
         options=options.keys(), 
         format_func=lambda x: options[x],
         selection_mode="single", 
-        default=0,
-        key = "dialog_seg"
+        key = "dialog_seg",
+        label_visibility='hidden',
     )
     # 장비 정보 표시
     gearinfo['image'].empty().image(f"{gear['image']}", use_container_width=True)
@@ -62,7 +62,7 @@ st.write("쿨타임 정보를 검색하고 확인하세요.")
 # 메인 컨테이너
 maincontent = st.container()
 # 검색창
-search_query = maincontent.text_input("", placeholder="장비 이름 입력")
+search_query = maincontent.text_input("장비 이름 검색", placeholder="장비 이름 입력", label_visibility='hidden')
 # 장비 목록
 list_area = maincontent.container()
 rows = []
@@ -76,7 +76,6 @@ for i in range(0, len(gears), col_max):
             with st.container(height=250, border=True):
                 st.image(gears[col_max * idx + j]['image'], width=120)
                 st.write(f"{gears[col_max * idx + j]['name']}")
-                # st.image(gears[col_max * idx + j]['image'], caption=f"{gears[col_max * idx + j]['name']}", width=120)
                 if st.button("선택", key=f"gear_{col_max * idx + j}", use_container_width=True):
                     st.session_state['dialog_seg'] = 0
                     showInfoDialog(gears[col_max * idx + j])
