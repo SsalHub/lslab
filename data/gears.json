@@ -6,16 +6,106 @@
             "cooldown": 29.2,
             "image": "images/gears/weapon/gangrim.png",
             "tag": [
-                "강림",  "강림붓", "강림도령 붓"
+                "강림",  "강림도령"
             ]
         },
         {
             "name": "나이트메어 큐브",
-            "part": "armor",
-            "cooldown": 30.0,
+            "part": "weapon",
+            "cooldown": 24.6,
             "image":"images/gears/weapon/nightmare.png",
             "tag": [
-                "나메", "나메무기", "나이트메어 큐브"
+                "나메", "나이트메어"
+            ]
+        },
+        {
+            "name": "라이트닝 지팡이",
+            "part": "weapon",
+            "cooldown": 19.2,
+            "image":"images/gears/weapon/lightningmage.png",
+            "tag": [
+                "라메", "라이트닝메이지"
+            ]
+        },
+        {
+            "name": "마그네틱 스피어",
+            "part": "weapon",
+            "cooldown": 28.08,
+            "image":"images/gears/weapon/magnetic.png",
+            "tag": [
+                "마그네틱"
+            ]
+        },
+        {
+            "name": "마피아 쌍권총",
+            "part": "weapon",
+            "cooldown": 10.1,
+            "image":"images/gears/weapon/mafia.png",
+            "tag": [
+                "마피아"
+            ]
+        },
+        {
+            "name": "미드나잇 무기",
+            "part": "weapon",
+            "cooldown": 26.67,
+            "image":"images/gears/weapon/midnight.png",
+            "tag": [
+                "미낫", "미드나잇", "미낫무기"
+            ]
+        },
+        {
+            "name": "사신무진 무기",
+            "part": "weapon",
+            "cooldown": 29.89,
+            "image":"images/gears/weapon/jinsasinmu.png",
+            "tag": [
+                "진", "사신무진"
+            ]
+        },
+        {
+            "name": "사이즈 스위치",
+            "part": "weapon",
+            "cooldown": 22.92,
+            "image":"images/gears/weapon/size.png",
+            "tag": [
+                "사이즈", "양자영역"
+            ]
+        },
+        {
+            "name": "서퍼 칵테일",
+            "part": "weapon",
+            "cooldown": 33.23,
+            "image":"images/gears/weapon/surfer.png",
+            "tag": [
+                "서퍼", "칵테일"
+            ]
+        },
+        {
+            "name": "스트라이더 무기",
+            "part": "weapon",
+            "cooldown": 30.84,
+            "image":"images/gears/weapon/strider.png",
+            "tag": [
+                "스트", "스트라이더", "메가아머리"
+            ]
+        },
+        {
+            "name": "암흑 지팡이",
+            "part": "weapon",
+            "cooldown": 27.22,
+            "image":"images/gears/weapon/darkshaman.png",
+            "tag": [
+                "암주", "암흑주술사"
+            ]
+        },
+        {
+            "name": "제우스 번개",
+            "part": "weapon",
+            "cooldown": 27.31,
+            "image":"images/gears/weapon/zeus.png",
+            "tag": [
+                "제우스"
             ]
         }
     ]

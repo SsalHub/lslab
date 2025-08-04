@@ -31,7 +31,6 @@ def getGrow(C_target, C0, tol=1e-4):
         f2 = max(0, min(x - 100, 100)) / 100
         f3 = max(0, min(x - 200, 100)) / 100
         return C0 * (r1 ** f1) * (r2 ** f2) * (r3 ** f3)
-
     # 이분 탐색
     low = 0
     high = 300

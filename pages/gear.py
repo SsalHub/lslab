@@ -14,27 +14,27 @@ def showInfoDialog(gear):
         'result': rightside.empty(),
         'seg': rightside.empty(),
     }
+
     # 장비 정보 조회방식 선택
     options = {
         0: '육성 -> 쿨타임',
         1: '쿨타임 -> 육성', 
     }
-    seg = gearinfo['seg'].empty().segmented_control(
+    gearinfo['seg'].empty().segmented_control(
         "", 
         options=options.keys(), 
         format_func=lambda x: options[x],
         selection_mode="single", 
-        default=0
+        default=0,
+        key = "dialog_seg"
     )
     # 장비 정보 표시
-    if seg == 0:
-        gearinfo['image'].empty().image(f"{gear['image']}", use_container_width=True)
-        gearinfo['name'].empty().subheader(gear['name'])
+    gearinfo['image'].empty().image(f"{gear['image']}", use_container_width=True)
+    gearinfo['name'].empty().subheader(gear['name'])
+    if st.session_state['dialog_seg'] == 0:
         grow = gearinfo['slider'].empty().slider("나의 육성수치 :", 0, 300, 200, 1)
         gearinfo['result'].empty().write(f"육성 {grow}에서의 쿨타임은 {cooldownCalc.getCooldown(grow, gear['cooldown'])}입니다.")
-    else:
-        gearinfo['image'].empty().image(f"{gear['image']}", use_container_width=True)
-        gearinfo['name'].empty().subheader(gear['name'])
+    elif st.session_state['dialog_seg'] == 1:
         cooldown = gearinfo['slider'].empty().slider("최소 ~ 최대 쿨타임 :", cooldownCalc.getCooldown(0, gear['cooldown']), cooldownCalc.getCooldown(300, gear['cooldown']), cooldownCalc.getCooldown(0, gear['cooldown']), 0.1)
         gearinfo['result'].empty().write(f"{cooldown} 쿨타임을 위한 육성치는 {cooldownCalc.getGrow(cooldown, gear['cooldown'])}입니다.")
 
@@ -66,14 +66,17 @@ search_query = maincontent.text_input("", placeholder="장비 이름 입력")
 # 장비 목록
 list_area = maincontent.container()
 rows = []
-row_len = 4
-cols = list_area.columns([row_len, len(gears) / row_len])
-for i in range(0, len(gears), row_len):
-    rows.append(st.columns(row_len))
-    col_len = (len(gears) - 1 - i) % row_len + 1
+col_max = 4
+for i in range(0, len(gears), col_max):
+    rows.append(list_area.columns(col_max))
+    col_len = (len(gears) - 1 - i) % col_max + 1
     for j in range(0, col_len):
-        with rows[i][j]:
-            with st.container(height=240, border=True):
-                st.image(gears[row_len * i + j]['image'], caption=f"{gears[row_len * i + j]['name']}", width=120)
-                if st.button("선택", key=f"gear_{row_len * i + j}", use_container_width=True):
-                    showInfoDialog(gears[row_len * i + j])
+        idx = i // col_max
+        with rows[idx][j]:
+            with st.container(height=250, border=True):
+                st.image(gears[col_max * idx + j]['image'], width=120)
+                st.write(f"{gears[col_max * idx + j]['name']}")
+                # st.image(gears[col_max * idx + j]['image'], caption=f"{gears[col_max * idx + j]['name']}", width=120)
+                if st.button("선택", key=f"gear_{col_max * idx + j}", use_container_width=True):
+                    st.session_state['dialog_seg'] = 0
+                    showInfoDialog(gears[col_max * idx + j])
