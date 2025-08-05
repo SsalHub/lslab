@@ -38,7 +38,7 @@ def showInfoDialog():
         # 육성->쿨타임 조회
         widgets['toggle'].empty().toggle("직접 입력", value=False, key='dialog_toggle')
         if st.session_state['dialog_toggle']:
-            grow = widgets['input'].empty().number_input(" ", min_value=0, max_value=300, value=200, placeholder="육성 수치 입력", label_visibility='hidden')
+            grow = widgets['input'].empty().number_input(" ", min_value=0, max_value=300, value=200, placeholder="육성 수치 입력")
             widgets['result'].empty().write(f"육성 {grow}에서의 쿨타임은 {cooldownCalc.getCooldown(grow, gear['cooldown'])}입니다.")
         else:
             grow = widgets['input'].empty().slider("나의 육성수치 :", 0, 300, 200, 1)
@@ -49,19 +49,42 @@ def showInfoDialog():
         widgets['result'].empty().write(f"{cooldown} 쿨타임을 위한 육성치는 {cooldownCalc.getGrow(cooldown, gear['cooldown'])}입니다.")
 
 
-
-
 def render():
     ### 페이지 중심 요소 배치
     # 타이틀 및 기본 요소 표시
     st.page_link("pages/home.py", label="⬅ 홈으로 돌아가기", icon="🏠")
     st.title("장비")
     st.write("쿨타임 정보를 검색하고 확인하세요.")
-
     # 메인 컨테이너
     maincontent = st.container()
     # 검색창
-    search_query = maincontent.text_input("장비 이름 검색", placeholder="장비 이름 입력", label_visibility='hidden')
+    maincontent.text_input("장비 이름 검색", key='query', placeholder="장비 이름 입력", label_visibility='hidden')
+    # 조회방식 선택
+    seg_options = {
+        "all": "전체",
+        "weapon": "무기",
+        "armor": "갑옷",
+        "helm": "투구",
+        "trinket": "망토",
+    }
+    _1, seg_align_center, _2 = maincontent.columns([1, 2, 1])
+    seg_align_center.segmented_control(
+        "조회방식 선택", 
+        options=seg_options.keys(), 
+        selection_mode="single", 
+        format_func=lambda x:seg_options[x],
+        key = "list_seg",
+        default="all",
+        label_visibility='collapsed',
+    )
+
+    # 장비 목록 필터링
+    
+    gears = sorted(st.session_state['gear_list'], key=lambda x: x['name'])
+    gears = [gear for gear in gears if gear['part'] == st.session_state['list_seg']] if st.session_state['list_seg'] != 'all' else gears
+    if 0 < len(st.session_state.get('query')):
+        gears = [gear for gear in gears if st.session_state['query'].lower() in gear['name'].lower()]
+    # gears = sorted(data['gear'], key=lambda x: x['name'])
     # 장비 목록
     list_area = maincontent.container()
     rows = []
@@ -80,13 +103,21 @@ def render():
                         st.session_state['gear'] = gears[col_max * row + j]
                         showInfoDialog()
 
-### 페이지 설정
-# 필요한 파일 로드
-with open('data/gears.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
+
 # 페이지 설정
 st.set_page_config(page_title="장비 페이지")
-# 장비 데이터 정렬
-gears = sorted(data['gear'], key=lambda x: x['name'])
+st.markdown('''
+<style>
+    div[data-testid="stElementToolbar"] {
+        visibility: hidden;
+    }
+</style>
+''',
+    unsafe_allow_html=True
+)
+# json 파일 로드
+with open('data/gears.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+    st.session_state['gear_list'] = sorted(data['gear'], key=lambda x: x['name'])
 # 페이지 렌더링
 render()
