@@ -179,6 +179,159 @@
             "tag": [
                 "독병", "쉐도우어쌔신", "쉐어"
             ]
+        },
+        {
+            "name": "드루이드 망토",
+            "part": "trinket",
+            "cooldown": 25.48,
+            "image":"images/gears/trinket/druid.png",
+            "tag": [
+                "드루이드"
+            ]
+        },
+        {
+            "name": "파라오 망토",
+            "part": "trinket",
+            "cooldown": 26.33,
+            "image":"images/gears/trinket/pharaoh.png",
+            "tag": [
+                "파라오"
+            ]
+        },
+        {
+            "name": "청룡 비급",
+            "part": "trinket",
+            "cooldown": 53.85,
+            "image":"images/gears/trinket/gwanyu.png",
+            "tag": [
+                "청룡관우", "비급"
+            ]
+        },
+        {
+            "name": "제우스 날개",
+            "part": "trinket",
+            "cooldown": 27.11,
+            "image":"images/gears/trinket/zeus.png",
+            "tag": [
+                "제우스", "제날"
+            ]
+        },
+        {
+            "name": "크로우의 레이븐",
+            "part": "trinket",
+            "cooldown": 29.44,
+            "image":"images/gears/trinket/crow.png",
+            "tag": [
+                "크로우 망토"
+            ]
+        },
+        {
+            "name": "파괴자 장신구",
+            "part": "trinket",
+            "cooldown": 28.34,
+            "image":"images/gears/trinket/earthquake.png",
+            "tag": [
+                "파괴자 망토"
+            ]
+        },
+        {
+            "name": "티메가테 장신구",
+            "part": "trinket",
+            "cooldown": 12.48,
+            "image":"images/gears/trinket/timegate.png",
+            "tag": [
+                "티메가테", "티메칼"
+            ]
+        },
+        {
+            "name": "일섬검",
+            "part": "trinket",
+            "cooldown": 24.5,
+            "image":"images/gears/trinket/onesword.png",
+            "tag": [
+                "일섬검"
+            ]
+        },
+        {
+            "name": "에너지연구원 에너지캡슐",
+            "part": "trinket",
+            "cooldown": 35.24,
+            "image":"images/gears/trinket/energyresearcher.png",
+            "tag": [
+                "에너지연구원", "에연망", "기소멸"
+            ]
+        },
+        {
+            "name": "악령도둑 배낭",
+            "part": "trinket",
+            "cooldown": 24.97,
+            "image":"images/gears/trinket/demontheif.png",
+            "tag": [
+                "악령도둑", "악도망"
+            ]
+        },
+        {
+            "name": "스파이럴 장신구",
+            "part": "trinket",
+            "cooldown": 17.09,
+            "image":"images/gears/trinket/spiral.png",
+            "tag": [
+                "스파이럴"
+            ]
+        },
+        {
+            "name": "복서 트로피",
+            "part": "trinket",
+            "cooldown": 29.78,
+            "image":"images/gears/trinket/boxer.png",
+            "tag": [
+                "복서 트로피", "챔피언"
+            ]
+        },
+        {
+            "name": "강림도령 장신구",
+            "part": "trinket",
+            "cooldown": 30.84,
+            "image":"images/gears/trinket/gangrim.png",
+            "tag": [
+                "강림도령", "귀면"
+            ]
+        },
+        {
+            "name": "권왕 무공서",
+            "part": "trinket",
+            "cooldown": 19.01,
+            "image":"images/gears/trinket/kwonwang.png",
+            "tag": [
+                "권왕 무공서"
+            ]
+        },
+        {
+            "name": "매드블라스터 망토",
+            "part": "trinket",
+            "cooldown": 20.6,
+            "image":"images/gears/trinket/madblaster.png",
+            "tag": [
+                "매드블라스터", "매블망"
+            ]
+        },
+        {
+            "name": "미드나잇 낫",
+            "part": "trinket",
+            "cooldown": 29.05,
+            "image":"images/gears/trinket/midnight.png",
+            "tag": [
+                "미드나잇", "미낫망"
+            ]
+        },
+        {
+            "name": "사제 장신구",
+            "part": "trinket",
+            "cooldown": 28.17,
+            "image":"images/gears/trinket/priest.png",
+            "tag": [
+                "사제 장신구", "사제망", "디스펠"
+            ]
         }
     ]
 }
