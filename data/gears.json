@@ -107,6 +107,78 @@
             "tag": [
                 "제우스"
             ]
+        },
+        {
+            "name": "퓨리어스 갑옷",
+            "part": "armor",
+            "cooldown": 24.28,
+            "image":"images/gears/armor/furious.png",
+            "tag": [
+                "퓨리어스"
+            ]
+        },
+        {
+            "name": "메가에이젼트 슈트",
+            "part": "armor",
+            "cooldown": 25.66,
+            "image":"images/gears/armor/megaagent.png",
+            "tag": [
+                "메전", "메젼", "러시붐", "러쉬붐", "메가에이전트", "메가에이젼트"
+            ]
+        },
+        {
+            "name": "시즈 의상",
+            "part": "armor",
+            "cooldown": 19.86,
+            "image":"images/gears/armor/seasonal.png",
+            "tag": [
+                "시즈갑"
+            ]
+        },
+        {
+            "name": "구미호 요귀",
+            "part": "helm",
+            "cooldown": 26.51,
+            "image":"images/gears/helm/gumiho.png",
+            "tag": [
+                "구미호 요귀"
+            ]
+        },
+        {
+            "name": "릴리의 서클릿",
+            "part": "helm",
+            "cooldown": 22.69,
+            "image":"images/gears/helm/lily.png",
+            "tag": [
+                "릴리의 서클릿"
+            ]
+        },
+        {
+            "name": "배가본드 마스크",
+            "part": "helm",
+            "cooldown": 25.7,
+            "image":"images/gears/helm/vegabond.png",
+            "tag": [
+                "배본모", "베본모", "베가본드", "배가본드"
+            ]
+        },
+        {
+            "name": "뱀파이어 써클릿",
+            "part": "helm",
+            "cooldown": 27.47,
+            "image":"images/gears/helm/vampire.png",
+            "tag": [
+                "뱀파이어", "뱀파모", "흡혈"
+            ]
+        },
+        {
+            "name": "쉐도우어쌔신 독병",
+            "part": "trinket",
+            "cooldown": 24.5,
+            "image":"images/gears/trinket/assassin.png",
+            "tag": [
+                "독병", "쉐도우어쌔신", "쉐어"
+            ]
         }
     ]
 }

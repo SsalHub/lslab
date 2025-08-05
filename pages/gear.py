@@ -67,9 +67,9 @@ def render():
         "helm": "투구",
         "trinket": "망토",
     }
-    _1, seg_align_center, _2 = maincontent.columns([1, 2, 1])
-    seg_align_center.segmented_control(
-        "조회방식 선택", 
+    _1, seg, selbox = maincontent.columns([1, 2, 1])
+    seg.segmented_control(
+        "부위 선택", 
         options=seg_options.keys(), 
         selection_mode="single", 
         format_func=lambda x:seg_options[x],
@@ -77,14 +77,30 @@ def render():
         default="all",
         label_visibility='collapsed',
     )
+    sel_options = [
+        "가나다순",
+        "쿨타임순"
+    ]
+    selbox.selectbox(
+        "조회방식 선택",
+        options=sel_options, 
+        index=0, 
+        key="list_sel",
+        label_visibility='collapsed',
+    )
 
     # 장비 목록 필터링
-    
-    gears = sorted(st.session_state['gear_list'], key=lambda x: x['name'])
+    if st.session_state['list_sel'] == sel_options[0]:
+        # 가나다순 정렬
+        gears = sorted(st.session_state['gear_list'], key=lambda x: x['name'])
+    elif st.session_state['list_sel'] == sel_options[1]:
+        # 쿨타임순 정렬
+        gears = sorted(st.session_state['gear_list'], key=lambda x: x['cooldown'])
+    else:
+        gears = st.session_state['gear_list']
     gears = [gear for gear in gears if gear['part'] == st.session_state['list_seg']] if st.session_state['list_seg'] != 'all' else gears
     if 0 < len(st.session_state.get('query')):
         gears = [gear for gear in gears if st.session_state['query'].lower() in gear['name'].lower()]
-    # gears = sorted(data['gear'], key=lambda x: x['name'])
     # 장비 목록
     list_area = maincontent.container()
     rows = []
