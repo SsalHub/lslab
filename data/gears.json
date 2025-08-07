@@ -417,7 +417,7 @@
         {
             "name": "초능력 슈트",
             "part": "armor",
-            "cooldown": 24.06,
+            "cooldown": 24.96,
             "image":"images/gears/armor/phychic.png",
             "tag": [
                 "초능력 슈트", "초능갑", "체인지"
