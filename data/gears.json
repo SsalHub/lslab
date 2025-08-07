@@ -175,7 +175,7 @@
             "name": "쉐도우어쌔신 독병",
             "part": "trinket",
             "cooldown": 24.5,
-            "image":"images/gears/trinket/assassin.png",
+            "image":"images/gears/trinket/shadowassassin.png",
             "tag": [
                 "독병", "쉐도우어쌔신", "쉐어"
             ]
@@ -331,6 +331,96 @@
             "image":"images/gears/trinket/priest.png",
             "tag": [
                 "사제 장신구", "사제망", "디스펠"
+            ]
+        },
+        {
+            "name": "고스트쉐도우 의상",
+            "part": "armor",
+            "cooldown": 22.92,
+            "image":"images/gears/armor/ghostshadow.png",
+            "tag": [
+                "고쉐갑", "고스트쉐도우"
+            ]
+        },
+        {
+            "name": "고위사제 의상",
+            "part": "armor",
+            "cooldown": 37.4,
+            "image":"images/gears/armor/highpriest.png",
+            "tag": [
+                "고위갑", "고위사제", "기소멸"
+            ]
+        },
+        {
+            "name": "기가슈트 아머",
+            "part": "armor",
+            "cooldown": 25.66,
+            "image":"images/gears/armor/gigasuit.png",
+            "tag": [
+                "기가슈트갑", "기슈갑"
+            ]
+        },
+        {
+            "name": "서큐버스 의상",
+            "part": "armor",
+            "cooldown": 33.23,
+            "image":"images/gears/armor/succubus.png",
+            "tag": [
+                "서큐버스의상", "서큐갑", "정기흡수"
+            ]
+        },
+        {
+            "name": "쉐도우어쌔신 의상",
+            "part": "armor",
+            "cooldown": 22.57,
+            "image":"images/gears/armor/shadowassassin.png",
+            "tag": [
+                "은신술" ,"어쌔신", "쉐어"
+            ]
+        },
+        {
+            "name": "스카디 갑옷",
+            "part": "armor",
+            "cooldown": 27.08,
+            "image":"images/gears/armor/skadi.png",
+            "tag": [
+                "스카디 갑옷", "아이스타임"
+            ]
+        },
+        {
+            "name": "아르고스 의상",
+            "part": "armor",
+            "cooldown": 22.76,
+            "image":"images/gears/armor/argos.png",
+            "tag": [
+                "아르고스 의상"
+            ]
+        },
+        {
+            "name": "요술사 의상",
+            "part": "armor",
+            "cooldown": 26.68,
+            "image":"images/gears/armor/conjurer.png",
+            "tag": [
+                "요술사 의상", "요술갑"
+            ]
+        },
+        {
+            "name": "중력술사 의상",
+            "part": "armor",
+            "cooldown": 12.48,
+            "image":"images/gears/armor/gravitymagician.png",
+            "tag": [
+                "중력술사 의상", "중력갑"
+            ]
+        },
+        {
+            "name": "초능력 슈트",
+            "part": "armor",
+            "cooldown": 24.06,
+            "image":"images/gears/armor/phychic.png",
+            "tag": [
+                "초능력 슈트", "초능갑", "체인지"
             ]
         }
     ]
