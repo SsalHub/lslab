@@ -1,9 +1,27 @@
 import streamlit as st
-from PIL import Image
 
+def render():
+    st.title("LSLAB")
+    st.write("LSLAB에서 이용할 기능을 선택하세요.")
+    st.divider()
 
-st.title("LSLAB")
-st.write("LSLAB에서 이용할 기능을 선택하세요")
-
-st.page_link("pages/gear.py", label="장비 페이지 바로가기", icon="🗡️")
-st.page_link("pages/medal.py", label="메달 페이지 바로가기", icon="🏅")
+    cols = st.columns([1, 4, 4, 1])
+    with cols[1]:
+        container = st.container(border=True)
+        container.image("images/gear_ico.png", use_container_width=True)
+        if container.button('장비 페이지', icon='🗡️', type="tertiary", width="stretch"):
+            st.switch_page("pages/gear.py")
+    with cols[2]:
+        container = st.container(border=True)
+        container.image("images/medal_ico.png", use_container_width=True)
+        if container.button('메달 페이지', icon='🏅', type="tertiary", width="stretch"):
+            st.switch_page("pages/medal.py")
+st.html('''
+<style>
+    div[data-testid="stElementToolbar"] {
+        visibility: hidden;
+    }
+</style>
+'''
+    )
+render()
