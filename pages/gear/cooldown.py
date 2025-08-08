@@ -101,19 +101,12 @@ def render(gear_list):
     if 0 < len(st.session_state.get('query')):
         gears = [gear for gear in gears if st.session_state['query'].lower() in gear['name'].lower()]
     # 장비 목록
-    list_area = st.container()
-    rows = []
-    col_max = 4
-    for row_in_step in range(0, len(gears), col_max):
-        rows.append(list_area.columns(col_max))
-        row = row_in_step // col_max
-        col_len = col_max if row_in_step + col_max <= len(gears) else len(gears) - row_in_step
-        for j in range(0, col_len):
-            with rows[row][j]:
-                with st.container(border=True):
-                    st.image(gears[col_max * row + j]['image'], use_container_width=True)
-                    st.html(f"<div style=\"text-align: center; margin-bottom: 10px;\">{gears[col_max * row + j]['name']}</div>",)
-                    if st.button("선택", key=f"gear_{col_max * row + j}", width="stretch"):
-                        st.session_state['dialog_seg'] = 0
-                        st.session_state['gear'] = gears[col_max * row + j]
-                        showInfoDialog()
+    list_area = st.container(horizontal=True, horizontal_alignment="center")
+    for i in range(len(gears)):
+        with list_area.container(border=True, width=160, horizontal_alignment="center", vertical_alignment="center"):
+            st.image(gears[i]['image'], use_container_width=True)
+            st.html(f'<div style="text-align: center; font-size: 16px;">{gears[i]["name"]}</div>',)
+            if st.button("선택", key=f"gear_{i}", width="stretch"):
+                st.session_state['dialog_seg'] = 0
+                st.session_state['gear'] = gears[i]
+                showInfoDialog()

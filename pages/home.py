@@ -5,7 +5,7 @@ def render():
     st.write("LSLAB에서 이용할 기능을 선택하세요.")
     st.divider()
 
-    cols = st.columns([1, 4, 4, 1])
+    cols = st.columns([2, 1, 1, 2])
     with cols[1]:
         container = st.container(border=True)
         container.image("images/gear_ico.png", use_container_width=True)
@@ -25,3 +25,5 @@ st.html('''
 '''
     )
 render()
+# from utils.browserdetect import isMobile
+# isMobile(st.context.headers['User-Agent'])
