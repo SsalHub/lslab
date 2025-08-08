@@ -1,5 +1,6 @@
 import streamlit as st
 import utils.cooldowncalc as cooldownCalc
+from utils.browserdetect import isMobile
 
 # 버튼 클릭 시 표시되는 장비 정보 대화박스
 @st.dialog("장비 쿨타임 정보")
@@ -56,10 +57,6 @@ def render(gear_list):
 </style>
 '''
     )
-    ### 페이지 중심 요소 배치
-    # 검색창
-    st.text_input("장비 이름 검색", key='query', placeholder="장비 이름 입력", label_visibility='hidden')
-    # 조회방식 선택
     seg_options = {
         "all": "전체",
         "weapon": "무기",
@@ -67,46 +64,46 @@ def render(gear_list):
         "helm": "투구",
         "trinket": "망토",
     }
-    _1, seg, selbox = st.columns([1, 2, 1])
-    seg.segmented_control(
-        "부위 선택", 
+    sel_options = [
+        "가나다순",
+        "쿨타임순"
+    ]
+
+    st.text_input("장비 이름 검색", key='query', placeholder="장비 이름 입력", label_visibility='hidden')
+    classifiers = st.container(horizontal=True, horizontal_alignment="right")
+    classifiers.segmented_control(
+        label="부위 선택", 
         options=seg_options.keys(), 
         selection_mode="single", 
         format_func=lambda x:seg_options[x],
         key = "list_seg",
         default="all",
         label_visibility='collapsed',
+        width="content"
     )
-    sel_options = [
-        "가나다순",
-        "쿨타임순"
-    ]
-    selbox.selectbox(
-        "조회방식 선택",
+    classifiers.selectbox(
+        label="조회방식 선택",
         options=sel_options, 
         index=0, 
         key="list_sel",
         label_visibility='collapsed',
+        width=130
     )
-    # 장비 목록 필터링
-    if st.session_state['list_sel'] == sel_options[0]:
-        # 가나다순 정렬
+    if st.session_state.list_sel == '가나다순':
         gears = sorted(gear_list, key=lambda x: x['name'])
-    elif st.session_state['list_sel'] == sel_options[1]:
-        # 쿨타임순 정렬
+    elif st.session_state.list_sel == '쿨타임순':
         gears = sorted(gear_list, key=lambda x: x['cooldown'])
     else:
         gears = gear_list
-    gears = [gear for gear in gears if gear['part'] == st.session_state['list_seg']] if st.session_state['list_seg'] != 'all' else gears
+    gears = [gear for gear in gears if gear['part'] == st.session_state.list_seg] if st.session_state.list_seg != 'all' else gears
     if 0 < len(st.session_state.get('query')):
-        gears = [gear for gear in gears if st.session_state['query'].lower() in gear['name'].lower()]
-    # 장비 목록
+        gears = [gear for gear in gears if st.session_state.query.lower() in gear['name'].lower()]
     list_area = st.container(horizontal=True, horizontal_alignment="center")
     for i in range(len(gears)):
-        with list_area.container(border=True, width=160, horizontal_alignment="center", vertical_alignment="center"):
+        with list_area.container(border=True, width=200, horizontal_alignment="center", vertical_alignment="center"):
             st.image(gears[i]['image'], use_container_width=True)
             st.html(f'<div style="text-align: center; font-size: 16px;">{gears[i]["name"]}</div>',)
             if st.button("선택", key=f"gear_{i}", width="stretch"):
                 st.session_state['dialog_seg'] = 0
-                st.session_state['gear'] = gears[i]
+                st.session_state.gear = gears[i]
                 showInfoDialog()
