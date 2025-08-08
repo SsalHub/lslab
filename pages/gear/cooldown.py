@@ -113,7 +113,7 @@ def render(gear_list):
                 with st.container(border=True):
                     st.image(gears[col_max * row + j]['image'], use_container_width=True)
                     st.html(f"<div style=\"text-align: center; margin-bottom: 10px;\">{gears[col_max * row + j]['name']}</div>",)
-                    if st.button("선택", key=f"gear_{col_max * row + j}", width="stretch"):
+                    if st.button("선택", key=f"gear_{col_max * row + j}", use_container_width=True):
                         st.session_state['dialog_seg'] = 0
                         st.session_state['gear'] = gears[col_max * row + j]
                         showInfoDialog()
