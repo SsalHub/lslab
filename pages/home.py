@@ -9,13 +9,14 @@ def render():
     with cols[1]:
         container = st.container(border=True)
         container.image("images/gear_ico.png", use_container_width=True)
-        if container.button('장비 페이지', icon='🗡️', type="tertiary", width="stretch"):
+        if container.button('장비 페이지', icon='🗡️', type="tertiary", use_container_width=True):
             st.switch_page("pages/gear.py")
     with cols[2]:
         container = st.container(border=True)
         container.image("images/medal_ico.png", use_container_width=True)
-        if container.button('메달 페이지', icon='🏅', type="tertiary", width="stretch"):
+        if container.button('메달 페이지', icon='🏅', type="tertiary", use_container_width=True):
             st.switch_page("pages/medal.py")
+
 st.html('''
 <style>
     div[data-testid="stElementToolbar"] {
