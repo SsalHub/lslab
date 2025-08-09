@@ -1,6 +1,7 @@
 import streamlit as st
 import utils.cooldowncalc as cooldownCalc
 from utils.browserdetect import isMobile
+import time
 
 # 버튼 클릭 시 표시되는 장비 정보 대화박스
 @st.dialog("장비 쿨타임 정보")
@@ -69,41 +70,64 @@ def render(gear_list):
         "쿨타임순"
     ]
 
-    st.text_input("장비 이름 검색", key='query', placeholder="장비 이름 입력", label_visibility='hidden')
-    classifiers = st.container(horizontal=True, horizontal_alignment="right")
-    classifiers.segmented_control(
-        label="부위 선택", 
+    query_container = st.container(horizontal=True, horizontal_alignment="center", vertical_alignment="center")
+    with query_container.container(width=80):
+        st.write("장비 리스트")
+    query_container.text_input("이름으로 검색", key='query', placeholder="장비 이름 입력", label_visibility="collapsed")
+    query_container.selectbox(
+        label="정렬 기준 선택 :",
+        options=sel_options,
+        index=0,
+        key="list_sel",
+        label_visibility='collapsed',
+        width=130
+    )
+    seg_container = st.container(horizontal=True, horizontal_alignment="center")
+    seg_container.segmented_control(
+        label="부위 선택 :", 
         options=seg_options.keys(), 
         selection_mode="single", 
         format_func=lambda x:seg_options[x],
         key = "list_seg",
         default="all",
-        label_visibility='collapsed',
+        label_visibility="collapsed",
         width="content"
     )
-    classifiers.selectbox(
-        label="조회방식 선택",
-        options=sel_options, 
-        index=0, 
-        key="list_sel",
-        label_visibility='collapsed',
-        width=130
-    )
-    if st.session_state.list_sel == '가나다순':
+    
+    if st.session_state.list_sel == "가나다순":
         gears = sorted(gear_list, key=lambda x: x['name'])
-    elif st.session_state.list_sel == '쿨타임순':
+    elif st.session_state.list_sel == "쿨타임순":
         gears = sorted(gear_list, key=lambda x: x['cooldown'])
     else:
         gears = gear_list
     gears = [gear for gear in gears if gear['part'] == st.session_state.list_seg] if st.session_state.list_seg != 'all' else gears
     if 0 < len(st.session_state.get('query')):
         gears = [gear for gear in gears if st.session_state.query.lower() in gear['name'].lower()]
-    list_area = st.container(horizontal=True, horizontal_alignment="center")
+    list_area = st.container(border=True, height=900, horizontal=True, horizontal_alignment="center")
     for i in range(len(gears)):
-        with list_area.container(border=True, width=200, horizontal_alignment="center", vertical_alignment="center"):
-            st.image(gears[i]['image'], use_container_width=True)
-            st.html(f'<div style="text-align: center; font-size: 16px;">{gears[i]["name"]}</div>',)
-            if st.button("선택", key=f"gear_{i}", width="stretch"):
-                st.session_state['dialog_seg'] = 0
-                st.session_state.gear = gears[i]
-                showInfoDialog()
+        with list_area.container(border=True, width=170, height=270, horizontal_alignment="center", vertical_alignment="center"):
+            gearname = gears[i]["name"] if len(gears[i]["name"]) < 8 else gears[i]["name"][:5] + '...'
+            st.image(gears[i]["image"], use_container_width=True)
+            st.html(f'<div style="text-align: center; font-size: 16px;"><span class="tooltip" title="{gears[i]["name"]}">{gearname}</span></div>',)
+            with st.container(horizontal=True, horizontal_alignment="center"):
+                if st.button("보기", key=f"_gear_show_{i}", width="stretch"):
+                    st.session_state.dialog_seg = 0
+                    st.session_state.gear = gears[i]
+                    showInfoDialog()
+                if "selected" not in st.session_state or gears[i] not in st.session_state.selected:
+                    if st.button("선택", key=f"_gear_select_{i}", type="secondary", width="stretch"):
+                        if "selected" not in st.session_state:
+                            st.session_state.selected = [ gears[i], ]
+                            st.rerun()
+                        else:
+                            if len(st.session_state.selected) < 2:
+                                st.session_state.selected.append(gears[i])
+                                st.rerun()
+                            else:
+                                st.toast("이미 두 개의 장비가 선택되었습니다. 하나를 제거해 주세요.")
+                else:
+                    if st.button("해제", key=f"_gear_remove_{i}", type="primary", width="stretch"):
+                        st.session_state.selected.remove(gears[i])
+                        st.rerun()
+
+                    
