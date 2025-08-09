@@ -6,47 +6,44 @@ import time
 # 버튼 클릭 시 표시되는 장비 정보 대화박스
 @st.dialog("장비 쿨타임 정보")
 def showInfoDialog():
-    leftside, rightside = st.columns([1, 2])
-    right_top = rightside.columns(2)
-    widgets = {
-        'image': leftside.empty(),
-        'name': right_top[0].empty(),
-        'toggle': right_top[1].empty(),
-        'input': rightside.empty(),
-        'result': rightside.empty(),
-        'seg': rightside.empty(),
-    }
+    gear = st.session_state.gear
+    main_container = st.container(horizontal=True, horizontal_alignment="center", gap=None)
+    with main_container.container(width=160, horizontal_alignment="center", vertical_alignment="center"):
+        st.image(gear["image"], use_container_width=True)
+    with main_container.container(width=240, horizontal_alignment="center"):
+        seg_options = {
+            0: '육성 -> 쿨타임',
+            1: '쿨타임 -> 육성', 
+        }
+        name_container = st.container(horizontal=True, horizontal_alignment="distribute")
+        name_container.html(f'<b style="text-align: center; font-">{gear["name"]}</b>')
+        toggle = name_container.empty()
+        input, result = st.empty(), st.empty()
+        st.segmented_control(
+            "label", 
+            options=seg_options.keys(), 
+            format_func=lambda x: seg_options[x],
+            selection_mode="single", 
+            key = "dialog_seg",
+            label_visibility='collapsed',
+            width="content"
+        )
+        if st.session_state.dialog_seg == 0:
+            # 육성->쿨타임 조회
+            toggle.toggle("직접 입력", value=False, key="dialog_toggle")
+            if st.session_state.dialog_toggle:
+                grow = input.number_input(" ", min_value=0, max_value=300, value=200, placeholder="육성 수치 입력")
+                result.write(f"육성 {grow}에서의 쿨타임은 {cooldownCalc.getCooldown(grow, gear['cooldown'])}입니다.")
+            else:
+                grow = input.slider("나의 육성수치 :", 0, 300, 200, 1)
+                result.write(f"육성 {grow}에서의 쿨타임은 {cooldownCalc.getCooldown(grow, gear['cooldown'])}입니다.")
+        elif st.session_state['dialog_seg'] == 1:
+            # 쿨타임->육성 조회
+            cooldown = input.slider("최소 ~ 최대 쿨타임 :", cooldownCalc.getCooldown(0, gear['cooldown']), cooldownCalc.getCooldown(300, gear['cooldown']), cooldownCalc.getCooldown(0, gear['cooldown']), 0.1)
+            result.write(f"{cooldown} 쿨타임을 위한 육성치는 {cooldownCalc.getGrow(cooldown, gear['cooldown'])}입니다.")
 
-    # 장비 정보 조회방식 선택
-    options = {
-        0: '육성 -> 쿨타임',
-        1: '쿨타임 -> 육성', 
-    }
-    widgets['seg'].segmented_control(
-        "조회방식 선택", 
-        options=options.keys(), 
-        format_func=lambda x: options[x],
-        selection_mode="single", 
-        key = "dialog_seg",
-        label_visibility='hidden',
-    )
-    # 장비 정보 표시
-    gear = st.session_state['gear']
-    widgets['image'].image(f"{gear['image']}", use_container_width=True)
-    widgets['name'].subheader(gear['name'])
-    if st.session_state['dialog_seg'] == 0:
-        # 육성->쿨타임 조회
-        widgets['toggle'].toggle("직접 입력", value=False, key='dialog_toggle')
-        if st.session_state['dialog_toggle']:
-            grow = widgets['input'].number_input(" ", min_value=0, max_value=300, value=200, placeholder="육성 수치 입력")
-            widgets['result'].write(f"육성 {grow}에서의 쿨타임은 {cooldownCalc.getCooldown(grow, gear['cooldown'])}입니다.")
-        else:
-            grow = widgets['input'].slider("나의 육성수치 :", 0, 300, 200, 1)
-            widgets['result'].write(f"육성 {grow}에서의 쿨타임은 {cooldownCalc.getCooldown(grow, gear['cooldown'])}입니다.")
-    elif st.session_state['dialog_seg'] == 1:
-        # 쿨타임->육성 조회
-        cooldown = widgets['input'].slider("최소 ~ 최대 쿨타임 :", cooldownCalc.getCooldown(0, gear['cooldown']), cooldownCalc.getCooldown(300, gear['cooldown']), cooldownCalc.getCooldown(0, gear['cooldown']), 0.1)
-        widgets['result'].write(f"{cooldown} 쿨타임을 위한 육성치는 {cooldownCalc.getGrow(cooldown, gear['cooldown'])}입니다.")
+
+
 
 
 def render(gear_list):
@@ -71,9 +68,9 @@ def render(gear_list):
     ]
 
     query_container = st.container(horizontal=True, horizontal_alignment="center", vertical_alignment="center")
-    with query_container.container(width=80):
-        st.write("장비 리스트")
-    query_container.text_input("이름으로 검색", key='query', placeholder="장비 이름 입력", label_visibility="collapsed")
+    with query_container.container(width=90):
+        st.write("🗡️장비 검색")
+    query_container.text_input("이름으로 검색", key='query', placeholder="이름으로 검색", label_visibility="collapsed")
     query_container.selectbox(
         label="정렬 기준 선택 :",
         options=sel_options,
@@ -106,7 +103,7 @@ def render(gear_list):
     list_area = st.container(border=True, height=900, horizontal=True, horizontal_alignment="center")
     for i in range(len(gears)):
         with list_area.container(border=True, width=170, height=270, horizontal_alignment="center", vertical_alignment="center"):
-            gearname = gears[i]["name"] if len(gears[i]["name"]) < 8 else gears[i]["name"][:5] + '...'
+            gearname = gears[i]["name"] if len(gears[i]["name"]) < 8 else gears[i]["name"][:6] + '...'
             st.image(gears[i]["image"], use_container_width=True)
             st.html(f'<div style="text-align: center; font-size: 16px;"><span class="tooltip" title="{gears[i]["name"]}">{gearname}</span></div>',)
             with st.container(horizontal=True, horizontal_alignment="center"):
