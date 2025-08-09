@@ -1,13 +1,14 @@
 import streamlit as st
 from PIL import Image
-from pages.gear import cooldown
+from utils.browserdetect import isMobile
 
 icon = Image.open("images/ico.png")
+layout = "centered" if isMobile(st.context.headers["User-Agent"]) else "wide"
 # 페이지 기본 설정
 st.set_page_config(
     page_title="LSLAB",
     page_icon=icon,
-    layout="centered"
+    layout=layout
 )
 
 
