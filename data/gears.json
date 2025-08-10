@@ -422,6 +422,15 @@
             "tag": [
                 "초능력 슈트", "초능갑", "체인지"
             ]
+        },
+        {
+            "name": "복서 글러브",
+            "part": "weapon",
+            "cooldown": 22.32,
+            "image":"images/gears/weapon/wildboxer.png",
+            "tag": [
+                "초능력 슈트", "초능갑", "체인지"
+            ]
         }
     ]
 }

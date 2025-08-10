@@ -152,8 +152,11 @@ def render(gear_list):
                             st.session_state.selected = [ gears[i], ]
                             st.rerun()
                         else:
-                            st.session_state.selected.append(gears[i])
-                            st.rerun()
+                            if 10 < len(st.session_state.selected):
+                                st.toast('선택할 수 있는 장비가 초과되었습니다.')
+                            else:
+                                st.session_state.selected.append(gears[i])
+                                st.rerun()
                 else:
                     if st.button("해제", key=f"_gear_remove_{i}", type="primary", width="stretch"):
                         st.session_state.selected.remove(gears[i])
