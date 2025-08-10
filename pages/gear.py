@@ -88,7 +88,6 @@ def render(gear_list):
                 st.image("images/none.png", use_container_width=True)
             st.html(f'<div style="text-align: center;">장비를 선택하면 쿨타임을 비교합니다.</div>')
         else:
-            warning = st.empty()
             selected_list_container = st.container(border=False, height=100, horizontal=True, vertical_alignment="center", gap=None)
             with selected_list_container.container(width=90):
                 st.write('선택된 장비 : ')
@@ -122,32 +121,32 @@ def render(gear_list):
                 if st.button('초기화', type="primary"):
                     del st.session_state["selected"]
                     st.rerun()
-            if 10 <= len(st.session_state.selected):
-                warning.warning('더 이상 장비를 선택할 수 없습니다.', icon="⚠️")
-
-    query_container = st.container(horizontal_alignment="center").container(width=1200, horizontal=True, horizontal_alignment="center", vertical_alignment="center")
-    with query_container.container(width=90):
-        st.write('🗡️장비 검색')
-    query_container.text_input('이름으로 검색', key='query', placeholder="이름으로 검색", label_visibility="collapsed")
-    query_container.selectbox(
-        label='정렬 기준 선택 :',
-        options=sel_options,
-        index=0,
-        key="list_sel",
-        label_visibility='collapsed',
-        width=130
-    )
-    seg_container = st.container(horizontal=True, horizontal_alignment="center")
-    seg_container.segmented_control(
-        label="부위 선택 :", 
-        options=seg_options.keys(), 
-        selection_mode="single", 
-        format_func=lambda x:seg_options[x],
-        key = "list_seg",
-        default="all",
-        label_visibility="collapsed",
-        width="content"
-    )
+    if "selected" in st.session_state and 10 <= len(st.session_state.selected):
+        with st.container(horizontal_alignment="center").container(width=1200, horizontal_alignment="center"):
+            st.warning('더 이상 장비를 선택할 수 없습니다.', icon="⚠️")
+    with st.container(horizontal_alignment="center").container(width=1200, horizontal=True, horizontal_alignment="center", vertical_alignment="center"):
+        with st.container(width=90):
+            st.write('🗡️장비 검색')
+        st.text_input('이름으로 검색', key='query', placeholder="이름으로 검색", label_visibility="collapsed")
+        st.selectbox(
+            label='정렬 기준 선택 :',
+            options=sel_options,
+            index=0,
+            key="list_sel",
+            label_visibility='collapsed',
+            width=130
+        )
+    with st.container(horizontal=True, horizontal_alignment="center"):
+        st.segmented_control(
+            label="부위 선택 :", 
+            options=seg_options.keys(), 
+            selection_mode="single", 
+            format_func=lambda x:seg_options[x],
+            key = "list_seg",
+            default="all",
+            label_visibility="collapsed",
+            width="content"
+        )
     
     if st.session_state.list_sel == "가나다순":
         gears = sorted(gear_list, key=lambda x: x['name'])
@@ -158,31 +157,22 @@ def render(gear_list):
     gears = [gear for gear in gears if gear['part'] == st.session_state.list_seg] if st.session_state.list_seg != 'all' else gears
     if 0 < len(st.session_state.get('query')):
         gears = [gear for gear in gears if st.session_state.query.lower() in gear['name'].lower()]
-    list_container = st.container(horizontal_alignment="center").container(border=True, width=1200, height=900, horizontal=True, horizontal_alignment="center", vertical_alignment="center")
-    for i in range(len(gears)):
-        with list_container.container(border=True, width=170, height=270, horizontal_alignment="center", vertical_alignment="center"):
-            gearname = gears[i]["name"] if len(gears[i]["name"]) < 7 else gears[i]["name"][:6] + '...'
-            st.image(gears[i]["image"], use_container_width=True)
-            st.html(f'<div style="text-align: center; font-size: 16px;"><span class="tooltip" title="{gears[i]["name"]}">{gearname}</span></div>',)
-            with st.container(horizontal=True, horizontal_alignment="center"):
-                if st.button("보기", key=f"_gear_show_{i}", width="stretch"):
-                    st.session_state.dialog_seg = 0
-                    st.session_state.gear = gears[i]
-                    showInfoDialog()
-                if "selected" not in st.session_state or gears[i] not in st.session_state.selected:
-                    st.button("선택", key=f"_gear_select_{i}", on_click=onClickSelectButton, args=[gears[i]], type="secondary", width="stretch")
-                    # if st.button("선택", key=f"_gear_select_{i}", type="secondary", width="stretch"):
-                    #     if "selected" not in st.session_state:
-                    #         st.session_state.selected = [ gears[i], ]
-                    #         st.rerun()
-                    #     else:
-                    #         if 10 < len(st.session_state.selected):
-                    #             st.toast('선택할 수 있는 장비가 초과되었습니다.')
-                    #         else:
-                    #             st.session_state.selected.append(gears[i])
-                    #             st.rerun()
-                else:
-                    st.button("해제", key=f"_gear_remove_{i}", on_click=onClickDeleteButton, args=[gears[i]], type="primary", width="stretch")
+    with st.container(horizontal_alignment="center").container(border=True, width=1200, height=900, horizontal=True, horizontal_alignment="center", vertical_alignment="center"):
+        for i in range(len(gears)):
+            with st.container(border=True, width=170, height=270, horizontal_alignment="center", vertical_alignment="center"):
+                gearname = gears[i]["name"] if len(gears[i]["name"]) < 7 else gears[i]["name"][:6] + '...'
+                st.image(gears[i]["image"], use_container_width=True)
+                st.html(f'<div style="text-align: center; font-size: 16px;"><span class="tooltip" title="{gears[i]["name"]}">{gearname}</span></div>',)
+                with st.container(horizontal=True, horizontal_alignment="center"):
+                    if st.button("보기", key=f"_gear_show_{i}", width="stretch"):
+                        st.session_state.dialog_seg = 0
+                        st.session_state.gear = gears[i]
+                        showInfoDialog()
+                    if "selected" not in st.session_state or gears[i] not in st.session_state.selected:
+                        bDisable = True if "selected" in st.session_state and 10 <= len(st.session_state.selected) else False 
+                        st.button("선택", key=f"_gear_select_{i}", on_click=onClickSelectButton, args=[gears[i]], type="secondary", width="stretch", disabled=bDisable)
+                    else:
+                        st.button("해제", key=f"_gear_remove_{i}", on_click=onClickDeleteButton, args=[gears[i]], type="primary", width="stretch")
                     
 
                     
