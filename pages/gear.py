@@ -3,17 +3,13 @@ import streamlit as st
 import json
 import time
 import utils.cooldowncalc as cooldownCalc
-from utils.browserdetect import isMobile
-from numpy.random import default_rng as rng
 
 
 def onClickSelectButton(data):
     if "selected" not in st.session_state:
         st.session_state.selected = [ data ]
     else:
-        if 10 < len(st.session_state.selected):
-            st.toast('선택할 수 있는 장비가 초과되었습니다.')
-        else:
+        if len(st.session_state.selected) < 10:
             st.session_state.selected.append(data)
 
 def onClickDeleteButton(data):
@@ -92,6 +88,7 @@ def render(gear_list):
                 st.image("images/none.png", use_container_width=True)
             st.html(f'<div style="text-align: center;">장비를 선택하면 쿨타임을 비교합니다.</div>')
         else:
+            warning = st.empty()
             selected_list_container = st.container(border=False, height=100, horizontal=True, vertical_alignment="center", gap=None)
             with selected_list_container.container(width=90):
                 st.write('선택된 장비 : ')
@@ -114,7 +111,7 @@ def render(gear_list):
                 gear_cooldown[gear["name"]] = gear["cooldown"]
                 time.sleep(.1)
             progressbar.progress(1.0, progress_text)
-            time.sleep(.2)
+            time.sleep(.1)
             df = pd.DataFrame(data)
             progressbar.empty()
             st.line_chart(df, x="육성", y="쿨타임", color="장비", use_container_width=False, width=800)
@@ -125,6 +122,8 @@ def render(gear_list):
                 if st.button('초기화', type="primary"):
                     del st.session_state["selected"]
                     st.rerun()
+            if 10 <= len(st.session_state.selected):
+                warning.warning('더 이상 장비를 선택할 수 없습니다.', icon="⚠️")
 
     query_container = st.container(horizontal_alignment="center").container(width=1200, horizontal=True, horizontal_alignment="center", vertical_alignment="center")
     with query_container.container(width=90):
