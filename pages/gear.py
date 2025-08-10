@@ -69,11 +69,13 @@ def render(gear_list):
     ]
 
     st.title("🗡️장비")
-    st.write("이용할 기능을 선택하세요.")
+    st.write("원하는 장비의 쿨타임을 확인하고 비교해보세요.")
     st.divider()
     compare_container = st.container(horizontal_alignment="center").container(border=True, width=1200, horizontal_alignment="center", vertical_alignment="center")
     compare_container.html('<div style="text-align: center; font-size: 50px; font-weight: bold;">쿨타임 비교 결과</div>')
     if "selected" not in st.session_state or not st.session_state.selected:
+        with compare_container.container(width=300, horizontal_alignment="center"):
+            st.image("images/none.png", use_container_width=True)
         compare_container.html(f'<div style="text-align: center;">장비를 선택하면 쿨타임을 비교합니다.</div>')
     else:
         selected_list_container = compare_container.container(border=False, height=100, horizontal=True, vertical_alignment="center", gap=None)

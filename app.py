@@ -14,11 +14,8 @@ st.set_page_config(
 
 # 페이지 링크 설정
 navi = {
-    "메인": [st.Page("pages/home.py", title="홈", icon="🏠", default=True)],
-    "장비": [
-        st.Page("pages/gear.py", title="장비", icon="🗡️"),
-        ],
+    "메인": [st.Page("pages/home.py", title="홈", icon="🏠")],
+    "장비": [st.Page("pages/gear.py", title="장비", icon="🗡️", default=True),],
     "메달": [st.Page("pages/medal.py", title="메달 페이지", icon="🏅")],
 }
-pg = st.navigation(navi)
-pg.run()
+st.navigation(navi, position="hidden").run()
