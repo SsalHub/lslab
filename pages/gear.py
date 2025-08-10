@@ -1,9 +1,23 @@
 import pandas as pd
 import streamlit as st
 import json
+import time
 import utils.cooldowncalc as cooldownCalc
 from utils.browserdetect import isMobile
 from numpy.random import default_rng as rng
+
+
+def onClickSelectButton(data):
+    if "selected" not in st.session_state:
+        st.session_state.selected = [ data ]
+    else:
+        if 10 < len(st.session_state.selected):
+            st.toast('선택할 수 있는 장비가 초과되었습니다.')
+        else:
+            st.session_state.selected.append(data)
+
+def onClickDeleteButton(data):
+    st.session_state.selected.remove(data)
 
 
 # 버튼 클릭 시 표시되는 장비 정보 대화박스
@@ -71,38 +85,46 @@ def render(gear_list):
     st.title("🗡️장비")
     st.write("원하는 장비의 쿨타임을 확인하고 비교해보세요.")
     st.divider()
-    compare_container = st.container(horizontal_alignment="center").container(border=True, width=1200, horizontal_alignment="center", vertical_alignment="center")
-    compare_container.html('<div style="text-align: center; font-size: 50px; font-weight: bold;">쿨타임 비교 결과</div>')
-    if "selected" not in st.session_state or not st.session_state.selected:
-        with compare_container.container(width=300, horizontal_alignment="center"):
-            st.image("images/none.png", use_container_width=True)
-        compare_container.html(f'<div style="text-align: center;">장비를 선택하면 쿨타임을 비교합니다.</div>')
-    else:
-        selected_list_container = compare_container.container(border=False, height=100, horizontal=True, vertical_alignment="center", gap=None)
-        with selected_list_container.container(width=90):
-            st.write('선택된 장비 : ')
-        for gear in st.session_state.selected:
-            with selected_list_container.container(width=140, horizontal=True, horizontal_alignment="center", vertical_alignment="center", gap=None):
-                gearname = gear["name"] if len(gear["name"]) < 7 else gear["name"][:6] + '...'
-                st.image(gear["image"], width=30)
-                with st.container(border=False, width=110, vertical_alignment="center", gap=None):
-                    st.html(f'<span title={gear["name"]}>{gearname}</span>')
-        data = { "육성": [], "쿨타임": [], "장비": [] }
-        gear_cooldown = {}
-        for gear in st.session_state.selected:
-            data["육성"].extend(list(range(300)))
-            data["쿨타임"].extend([cooldownCalc.getCooldown(i, gear["cooldown"]) for i in range(300)])
-            data["장비"].extend([gear["name"]] * 300)
-            gear_cooldown[gear["name"]] = gear["cooldown"]
-        df = pd.DataFrame(data)
-        compare_container.line_chart(df, x="육성", y="쿨타임", color="장비", use_container_width=False, width=800)
-        fastest = min(gear_cooldown, key=gear_cooldown.get)
-        compare_container.html(f'<div style="text-align: center;"><h2>가장 쿨타임이 빠른 장비는 <span style="color: #ff0000">{fastest}</span>입니다.</h2></div>')
-        compare_container.html(f'<div style="text-align: center;">그래프에 마우스를 올려 상세정보를 확인하세요.</div>')
-        with compare_container.container(horizontal_alignment="center"):
-            if st.button('초기화', type="primary"):
-                del st.session_state["selected"]
-                st.rerun()
+    with st.container(horizontal_alignment="center").container(border=True, width=1200, horizontal_alignment="center", vertical_alignment="center"):
+        st.html('<div style="text-align: center; font-size: 50px; font-weight: bold;">쿨타임 비교 결과</div>')
+        if "selected" not in st.session_state or not st.session_state.selected:
+            with st.container(width=300, horizontal_alignment="center"):
+                st.image("images/none.png", use_container_width=True)
+            st.html(f'<div style="text-align: center;">장비를 선택하면 쿨타임을 비교합니다.</div>')
+        else:
+            selected_list_container = st.container(border=False, height=100, horizontal=True, vertical_alignment="center", gap=None)
+            with selected_list_container.container(width=90):
+                st.write('선택된 장비 : ')
+            for gear in st.session_state.selected:
+                with selected_list_container.container(width=140, horizontal=True, horizontal_alignment="center", vertical_alignment="center", gap=None):
+                    gearname = gear["name"] if len(gear["name"]) < 7 else gear["name"][:6] + '...'
+                    st.image(gear["image"], width=30)
+                    with st.container(border=False, width=110, vertical_alignment="center", gap=None):
+                        st.html(f'<span title={gear["name"]}>{gearname}</span>')
+            data = { "육성": [], "쿨타임": [], "장비": [] }
+            gear_cooldown = {}
+            progress_text = '비교 데이터를 로드하는 중입니다.'
+            progressbar = st.progress(0.0, progress_text)
+            for i in range(len(st.session_state.selected)):
+                progressbar.progress((i + 1) // len(st.session_state.selected) * 0.9, progress_text)
+                gear = st.session_state.selected[i]
+                data["육성"].extend(list(range(300)))
+                data["쿨타임"].extend([cooldownCalc.getCooldown(i, gear["cooldown"]) for i in range(300)])
+                data["장비"].extend([gear["name"]] * 300)
+                gear_cooldown[gear["name"]] = gear["cooldown"]
+                time.sleep(.1)
+            progressbar.progress(1.0, progress_text)
+            time.sleep(.2)
+            df = pd.DataFrame(data)
+            progressbar.empty()
+            st.line_chart(df, x="육성", y="쿨타임", color="장비", use_container_width=False, width=800)
+            fastest = min(gear_cooldown, key=gear_cooldown.get)
+            st.html(f'<div style="text-align: center;"><h2>가장 쿨타임이 빠른 장비는 <span style="color: #ff0000">{fastest}</span>입니다.</h2></div>')
+            st.html(f'<div style="text-align: center;">그래프에 마우스를 올려 상세정보를 확인하세요.</div>')
+            with st.container(horizontal_alignment="center"):
+                if st.button('초기화', type="primary"):
+                    del st.session_state["selected"]
+                    st.rerun()
 
     query_container = st.container(horizontal_alignment="center").container(width=1200, horizontal=True, horizontal_alignment="center", vertical_alignment="center")
     with query_container.container(width=90):
@@ -149,20 +171,20 @@ def render(gear_list):
                     st.session_state.gear = gears[i]
                     showInfoDialog()
                 if "selected" not in st.session_state or gears[i] not in st.session_state.selected:
-                    if st.button("선택", key=f"_gear_select_{i}", type="secondary", width="stretch"):
-                        if "selected" not in st.session_state:
-                            st.session_state.selected = [ gears[i], ]
-                            st.rerun()
-                        else:
-                            if 10 < len(st.session_state.selected):
-                                st.toast('선택할 수 있는 장비가 초과되었습니다.')
-                            else:
-                                st.session_state.selected.append(gears[i])
-                                st.rerun()
+                    st.button("선택", key=f"_gear_select_{i}", on_click=onClickSelectButton, args=[gears[i]], type="secondary", width="stretch")
+                    # if st.button("선택", key=f"_gear_select_{i}", type="secondary", width="stretch"):
+                    #     if "selected" not in st.session_state:
+                    #         st.session_state.selected = [ gears[i], ]
+                    #         st.rerun()
+                    #     else:
+                    #         if 10 < len(st.session_state.selected):
+                    #             st.toast('선택할 수 있는 장비가 초과되었습니다.')
+                    #         else:
+                    #             st.session_state.selected.append(gears[i])
+                    #             st.rerun()
                 else:
-                    if st.button("해제", key=f"_gear_remove_{i}", type="primary", width="stretch"):
-                        st.session_state.selected.remove(gears[i])
-                        st.rerun()
+                    st.button("해제", key=f"_gear_remove_{i}", on_click=onClickDeleteButton, args=[gears[i]], type="primary", width="stretch")
+                    
 
                     
 
