@@ -508,7 +508,7 @@
             "name": "발키리 투구",
             "part": "helm",
             "cooldown": 28.34,
-            "image":"images/gears/helm/balkyrie.png",
+            "image":"images/gears/helm/valkyrie.png",
             "tag": [
                 "발키리 투구"
             ]
