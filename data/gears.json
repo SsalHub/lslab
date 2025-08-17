@@ -429,7 +429,232 @@
             "cooldown": 22.32,
             "image":"images/gears/weapon/wildboxer.png",
             "tag": [
-                "초능력 슈트", "초능갑", "체인지"
+                "핵펀치", "복서 글러브", "와일드복서", "와복"
+            ]
+        },
+        {
+            "name": "가드너 머리장식",
+            "part": "helm",
+            "cooldown": 24.5,
+            "image":"images/gears/helm/gardener.png",
+            "tag": [
+                "가드너 투구", "가드너 머리장식"
+            ]
+        },
+        {
+            "name": "강령술사 모자",
+            "part": "helm",
+            "cooldown": 27.11,
+            "image":"images/gears/helm/necromancer.png",
+            "tag": [
+                "강령술사 투구", "강령모"
+            ]
+        },
+        {
+            "name": "고스트쉐도우 투구",
+            "part": "helm",
+            "cooldown": 25.48,
+            "image":"images/gears/helm/ghostshadow.png",
+            "tag": [
+                "고쉐모", "고스트쉐도우"
+            ]
+        },
+        {
+            "name": "대모달 투구",
+            "part": "helm",
+            "cooldown": 34.79,
+            "image":"images/gears/helm/damodal.png",
+            "tag": [
+                "대모달 투구"
+            ]
+        },
+        {
+            "name": "레이져 고글",
+            "part": "helm",
+            "cooldown": 15.15,
+            "image":"images/gears/helm/laser.png",
+            "tag": [
+                "레이져 고글", "레이저 고글"
+            ]
+        },
+        {
+            "name": "마이너 방독면",
+            "part": "helm",
+            "cooldown": 16.61,
+            "image":"images/gears/helm/crazyminer.png",
+            "tag": [
+                "크마모자", "크마투구", "방독면"
+            ]
+        },
+        {
+            "name": "메딕 모자",
+            "part": "helm",
+            "cooldown": 34.79,
+            "image":"images/gears/helm/cybermedic.png",
+            "tag": [
+                "기소멸", "메딕 모자", "메딕 투구"
+            ]
+        },
+        {
+            "name": "바터니스트 마스크",
+            "part": "helm",
+            "cooldown": 25.66,
+            "image":"images/gears/helm/botanist.png",
+            "tag": [
+                "바터모", "바터니스트 마스크"
+            ]
+        },
+        {
+            "name": "발키리 투구",
+            "part": "helm",
+            "cooldown": 28.34,
+            "image":"images/gears/helm/balkyrie.png",
+            "tag": [
+                "발키리 투구"
+            ]
+        },
+        {
+            "name": "사이언티스트 고글",
+            "part": "helm",
+            "cooldown": 25.48,
+            "image":"images/gears/helm/scientist.png",
+            "tag": [
+                "사티모", "사이언티스트 고글"
+            ]
+        },
+        {
+            "name": "살라딘 터번",
+            "part": "helm",
+            "cooldown": 21.76,
+            "image":"images/gears/helm/saladin.png",
+            "tag": [
+                "살라모", "살라딘 터번"
+            ]
+        },
+        {
+            "name": "스트레인져의 서클릿",
+            "part": "helm",
+            "cooldown": 26.68,
+            "image":"images/gears/helm/drstranger.png",
+            "tag": [
+                "스렌모", "스트레인져의 서클릿"
+            ]
+        },
+        {
+            "name": "연금술사 서클릿",
+            "part": "helm",
+            "cooldown": 22.92,
+            "image":"images/gears/helm/alchemist.png",
+            "tag": [
+                "연금모", "러쉬붐", "러시붐", "연금술사 서클릿"
+            ]
+        },
+        {
+            "name": "요술사 모자",
+            "part": "helm",
+            "cooldown": 24.5,
+            "image":"images/gears/helm/conjurer.png",
+            "tag": [
+                "요술모", "요술사 모자"
+            ]
+        },
+        {
+            "name": "전우치 갓",
+            "part": "helm",
+            "cooldown": 28.34,
+            "image":"images/gears/helm/woochi.png",
+            "tag": [
+                "전우치모", "전우치 갓"
+            ]
+        },
+        {
+            "name": "칼리 머리띠",
+            "part": "helm",
+            "cooldown": 26.68,
+            "image":"images/gears/helm/kali.png",
+            "tag": [
+                "칼리모", "칼리 머리띠"
+            ]
+        },
+        {
+            "name": "타락강시도사 모자",
+            "part": "helm",
+            "cooldown": 29.42,
+            "image":"images/gears/helm/fallengangsimaster.png",
+            "tag": [
+                "타강모", "타락강시도사 모자"
+            ]
+        },
+        {
+            "name": "트랜스 스카우터",
+            "part": "helm",
+            "cooldown": 16.61,
+            "image":"images/gears/helm/transscouter.png",
+            "tag": [
+                "트랜스스카우터", "트랜스 스카우터"
+            ]
+        },
+        {
+            "name": "티메가테 터번",
+            "part": "helm",
+            "cooldown": 27.11,
+            "image":"images/gears/helm/timegate.png",
+            "tag": [
+                "티메모", "티메가테 터번"
+            ]
+        },
+        {
+            "name": "파계승 징표",
+            "part": "helm",
+            "cooldown": 15.15,
+            "image":"images/gears/helm/apostate.png",
+            "tag": [
+                "파계모", "파계승 징표"
+            ]
+        },
+        {
+            "name": "패트리어트 투구",
+            "part": "helm",
+            "cooldown": 24.5,
+            "image":"images/gears/helm/patriot.png",
+            "tag": [
+                "패트모", "패트리어트 투구"
+            ]
+        },
+        {
+            "name": "페르소나 모자",
+            "part": "helm",
+            "cooldown": 28.4,
+            "image":"images/gears/helm/persona.png",
+            "tag": [
+                "페르소나 모자"
+            ]
+        },
+        {
+            "name": "호크아이 복면",
+            "part": "helm",
+            "cooldown": 12.48,
+            "image":"images/gears/helm/hawkeye.png",
+            "tag": [
+                "호크모", "호크아이 복면"
+            ]
+        },
+        {
+            "name": "후크 모자",
+            "part": "helm",
+            "cooldown": 32.14,
+            "image":"images/gears/helm/captainhook.png",
+            "tag": [
+                "후크모", "후크 모자"
+            ]
+        },
+        {
+            "name": "VR 헤드셋",
+            "part": "helm",
+            "cooldown": 22.95,
+            "image":"images/gears/helm/vr.png",
+            "tag": [
+                "VR모", "vr모", "브알모"
             ]
         }
     ]
