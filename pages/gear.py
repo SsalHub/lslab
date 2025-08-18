@@ -156,7 +156,11 @@ def render(gear_list):
         gears = gear_list
     gears = [gear for gear in gears if gear['part'] == st.session_state.list_seg] if st.session_state.list_seg != 'all' else gears
     if 0 < len(st.session_state.get('query')):
-        gears = [gear for gear in gears if st.session_state.query.lower() in gear['name'].lower()]
+        gears = [
+            gear 
+            for gear in gears 
+            if any(st.session_state.query.lower() in tag.lower() for tag in gear['tag'])
+        ]
     with st.container(horizontal_alignment="center").container(border=True, width=1200, height=900, horizontal=True, horizontal_alignment="center", vertical_alignment="center"):
         for i in range(len(gears)):
             with st.container(border=True, width=170, height=270, horizontal_alignment="center", vertical_alignment="center"):

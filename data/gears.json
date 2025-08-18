@@ -264,10 +264,10 @@
         {
             "name": "악령도둑 배낭",
             "part": "trinket",
-            "cooldown": 24.97,
+            "cooldown": 25.5,
             "image":"images/gears/trinket/demontheif.png",
             "tag": [
-                "악령도둑", "악도망"
+                "악령도둑 배낭", "악도", "악도망"
             ]
         },
         {
