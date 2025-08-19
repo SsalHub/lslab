@@ -309,7 +309,7 @@
         {
             "name": "매드블라스터 망토",
             "part": "trinket",
-            "cooldown": 20.6,
+            "cooldown": 21.25,
             "image":"images/gears/trinket/madblaster.png",
             "tag": [
                 "매드블라스터", "매블망"
@@ -655,6 +655,15 @@
             "image":"images/gears/helm/vr.png",
             "tag": [
                 "VR모", "vr모", "브알모"
+            ]
+        },
+        {
+            "name": "초시공 부메랑",
+            "part": "trinket",
+            "cooldown": 21.25,
+            "image":"images/gears/trinket/alpha.png",
+            "tag": [
+                "초시공 부메랑", "초시공망"
             ]
         }
     ]
