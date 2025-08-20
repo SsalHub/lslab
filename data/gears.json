@@ -327,7 +327,7 @@
         {
             "name": "사제 장신구",
             "part": "trinket",
-            "cooldown": 28.17,
+            "cooldown": 28.96,
             "image":"images/gears/trinket/priest.png",
             "tag": [
                 "사제 장신구", "사제망", "디스펠"
@@ -664,6 +664,15 @@
             "image":"images/gears/trinket/alpha.png",
             "tag": [
                 "초시공 부메랑", "초시공망"
+            ]
+        },
+        {
+            "name": "글라키에스 결정",
+            "part": "trinket",
+            "cooldown": 28.96,
+            "image":"images/gears/trinket/glaciers.png",
+            "tag": [
+                "글라키에스 결정", "글키망"
             ]
         }
     ]

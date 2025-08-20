@@ -66,9 +66,7 @@ def render(gear_list):
     a#_page_title {
         color: #ffffff;
         text-decoration-line: none;
-    }
-    a#_page_title:hover {
-        text-decoration-line: underline;
+        cursor: pointer;
     }
 </style>
 '''
@@ -85,7 +83,7 @@ def render(gear_list):
         "쿨타임순"
     ]
 
-    st.html('<span style="font-size: 64px; font-weight: bold;" title="장비 페이지로"><a id="_page_title" href="" onclick="window.location.reload();" style="cursor: pointer;">🗡️장비</a></span>')
+    st.html('<span style="font-size: 64px; font-weight: bold;" title="장비 페이지로"><a id="_page_title" href="" onclick="window.location.reload();">🗡️장비</a></span>')
     st.write("원하는 장비의 쿨타임을 확인하고 비교해보세요.")
     st.divider()
     with st.container(horizontal_alignment="center").container(border=True, width=1200, horizontal_alignment="center", vertical_alignment="center"):
